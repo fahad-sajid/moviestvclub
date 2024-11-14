@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoviesTVClub - Discover Your Next Obsession</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        :root {
+            --primary-color: #e50914;
+            --dark-bg: #141414;
+            --light-text: #ffffff;
+            --secondary-text: #e5e5e5;
+            --gradient-overlay: linear-gradient(45deg, rgba(20,20,20,0.7) 0%, rgba(20,20,20,0.4) 100%);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+        }
+
+        /* Header Styles */
+        header {
+            padding: 1rem 5%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            background: var(--gradient-overlay), url('https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?ixlib=rb-4.0.3') center/cover;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: var(--secondary-text);
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            background-color: #f40612;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 4rem 5%;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .movie-card {
+            position: relative;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .movie-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent 50%, rgba(0,0,0,0.9));
+            transition: opacity 0.3s ease;
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .movie-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .movie-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            z-index: 2;
+        }
+
+        .movie-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .movie-info p {
+            font-size: 1rem;
+            color: var(--secondary-text);
+            line-height: 1.4;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0,0,0,0.9);
+            padding: 3rem 5%;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1.2rem;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--light-text);
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .movie-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">MoviesTVClub</a>
+            <div class="nav-links">
+                <a href="#" onclick="window.location.reload()">Home</a>
+                <a href="#" onclick="window.location.reload()">Movies</a>
+                <a href="#" onclick="window.location.reload()">TV Shows</a>
+                <a href="#" onclick="window.location.reload()">My List</a>
+                <a href="#" onclick="window.location.reload()">Search</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Where Stories Come Alive</h1>
+            <p>Dive into a world of endless entertainment. From pulse-pounding action to heartwarming tales, discover stories that will stay with you long after the credits roll.</p>
+            <a href="#" class="cta-button" onclick="window.location.reload()">Begin Your Journey</a>
+        </div>
+    </section>
+
+    <section class="categories">
+        <h2 class="category-title">Epic Tales Await</h2>
+        <div class="movie-grid">
+            <div class="movie-card" onclick="window.location.reload()">
+                <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?ixlib=rb-4.0.3" alt="Dune: Part Two">
+                <div class="movie-info">
+                    <h3>Dune: Part Two</h3>
+                    <p>Continue the epic journey across Arrakis in Denis Villeneuve's breathtaking conclusion</p>
+                </div>
+            </div>
+            <div class="movie-card" onclick="window.location.reload()">
+                <img src="https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?ixlib=rb-4.0.3" alt="Poor Things">
+                <div class="movie-info">
+                    <h3>Poor Things</h3>
+                    <p>A Victorian tale of love, discovery, and liberation that defies expectations</p>
+                </div>
+            </div>
+            <div class="movie-card" onclick="window.location.reload()">
+                <img src="https://images.unsplash.com/photo-1535016120720-40c646be5580?ixlib=rb-4.0.3" alt="Deadpool & Wolverine">
+                <div class="movie-info">
+                    <h3>Deadpool & Wolverine</h3>
+                    <p>The ultimate odd couple tears through the multiverse in this wild ride</p>
+                </div>
+            </div>
+            <div class="movie-card" onclick="window.location.reload()">
+                <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?ixlib=rb-4.0.3" alt="Oppenheimer">
+                <div class="movie-info">
+                    <h3>Oppenheimer</h3>
+                    <p>Witness the brilliant mind that changed the course of history forever</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="category-title">Series That Define Genres</h2>
+        <div class="movie-grid">
+            <div class="movie-card" onclick="window.location.reload()">
+                <img src="https://images.unsplash.com/photo-1614846384571-1e31322ed3d7?ixlib=rb-4.0.3" alt="House of the Dragon">
+                <div class="movie-info">
+                    <h3>House of the Dragon: Season 2</h3>
+                    <p>Return to Westeros as the dance of dragons begins anew</p>
+                </div>
+            </div>
+            <div class="movie-card" onclick="window.location.reload()">
+                <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-4.0.3" alt="The Last of Us">
+                <div class="movie-info">
+                    <h3>The Last of Us</h3>
+                    <p>Hope survives in a broken world where every connection matters</p>
+                </div>
+            </div>
+            <div class="movie-card" onclick="window.location.reload()">
+                <img src="https://images.unsplash.com/photo-1579547945413-497e1b99dac0?ixlib=rb-4.0.3" alt="True Detective">
+                <div class="movie-info">
+                    <h3>True Detective: Night Country</h3>
+                    <p>Unravel mysteries in the endless Alaskan night where darkness holds secrets</p>
+                </div>
+            </div>
+            <div class="movie-card" onclick="window.location.reload()">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3" alt="Squid Game">
+                <div class="movie-info">
+                    <h3>Squid Game: Season 2</h3>
+                    <p>The games begin again, but this time the stakes are even higher</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="#" onclick="window.location.reload()">Latest Releases</a></li>
+                    <li><a href="#" onclick="window.location.reload()">Coming Soon</a></li>
+                    <li><a href="#" onclick="window.location.reload()">Staff Picks</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="#" onclick="window.location.reload()">Discussion Board</a></li>
+                    <li><a href="#" onclick="window.location.reload()">Reviews</a></li>
+                    <li><a href="#" onclick="window.location.reload()">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#" onclick="window.location.reload()">Help Center</a></li>
+                    <li><a href="#" onclick="window.location.reload()">Contact Us</a></li>
+                    <li><a href="#" onclick="window.location.reload()">Account</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
